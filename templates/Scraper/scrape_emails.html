@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Scraper</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Email Scraper Tool</h1>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if emails %}
+            <h3 class="mt-5">Found Emails:</h3>
+            <ul class="list-group mt-3">
+                {% for email in emails %}
+                    <li class="list-group-item">{{ email }}</li>
+                {% endfor %}
+            </ul>
+        {% elif emails is not None %}
+            <p class="mt-5 text-warning">No email addresses found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
