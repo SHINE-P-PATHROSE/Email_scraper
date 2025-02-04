@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 import re
 from django.shortcuts import render
 from .forms import URLForm
@@ -7,7 +6,7 @@ from .forms import URLForm
 def fetch_html(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raises HTTPError for bad responses (4xx or 5xx)
+        response.raise_for_status()
         return response.text
     except requests.exceptions.RequestException as e:
         print(f"Error fetching {url}: {e}")
@@ -16,7 +15,7 @@ def fetch_html(url):
 def extract_emails(html):
     email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
     emails = re.findall(email_pattern, html)
-    return set(emails)  # Use a set to remove duplicates
+    return set(emails)
 
 def scrape_emails(request):
     emails = None
